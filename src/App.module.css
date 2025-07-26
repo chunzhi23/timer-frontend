@@ -1,0 +1,77 @@
+.wrap {
+  height: 100dvh;
+  min-height: 476px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  position: relative;
+
+  @media (min-width: 480px) and (max-width: 961px) {
+    font-size: 16px;
+  }
+
+  @media only screen and (max-width: 481px) {
+    font-size: 12px;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex: 1;
+
+  @media only screen and (max-width: 961px) {
+    flex-direction: column-reverse;
+    gap: 28px;
+  }
+}
+
+.countdownBox {
+  width: 420px;
+
+  @media only screen and (max-width: 481px) {
+    width: 80dvw;
+    min-width: fit-content;
+  }
+}
+
+.timeBox {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.iconBox {
+  padding: 10px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("./assets/img/camouflage-background.png");
+}
+
+.iconImg {
+  width: 270px;
+  border-radius: 25px;
+
+  @media (min-width: 480px) and (max-width: 961px) {
+    width: 210px;
+  }
+
+  @media only screen and (max-width: 481px) {
+    width: 180px;
+  }
+}
+
+.msgBox {
+  position: absolute;
+  bottom: 10dvh;
+  color: #3b3d5a;
+  font-size: 1.2em;
+  font-weight: 400;
+  letter-spacing: 12px;
+}

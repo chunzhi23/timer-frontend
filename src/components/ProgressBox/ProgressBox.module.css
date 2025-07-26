@@ -1,0 +1,26 @@
+.progressBar {
+  border-radius: 0px 15px;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.progressStatus {
+  padding: 0 10px;
+  border-radius: 0 15px 15px 0;
+  display: inline-block;
+  min-width: min-content;
+  height: 28px;
+  line-height: 28px;
+  text-align: right;
+  white-space: nowrap;
+  box-sizing: border-box;
+  color: #ffffff;
+}
+
+.bottomMsg {
+  display: block;
+  color: #000000;
+  font-size: 1em;
+  font-weight: 300;
+  letter-spacing: -0.32px;
+}
