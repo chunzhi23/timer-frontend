@@ -13,13 +13,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Disable optional dependencies in npm
+        run: npm config set optional false
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build React App
         run: npm run build
@@ -40,4 +43,5 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl set image deployment/timer-frontend timer-frontend=${{ secrets.REGISTRY_USERNAME }}/timer-frontend:latest
+          kubectl set image deployment/timer-frontend \
+            timer-frontend=${{ secrets.REGISTRY_USERNAME }}/timer-frontend:latest
