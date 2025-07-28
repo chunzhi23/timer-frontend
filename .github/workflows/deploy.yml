@@ -1,45 +1,82 @@
-name: Build and Deploy React App to K8s
+name: Docker Image CI
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
+
+env:
+  dockerimage_tag: ${{ github.sha }}
+  dockerimage_name: tsungmnli/timer-fe
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Ready to use Docker (1/4) - Create Metadata
+        id: meta
+        uses: docker/metadata-action@5.7.0
         with:
-          node-version: "20"
+          images: |
+            ${{ env.dockerimage_name }}
+          tags: |
+            ${{ env.dockerimage_tag }}
+          flavor: |
+            latest=true
 
-      - name: Install Dependencies
-        run: npm ci --omit=optional
+      - name: Ready to use Docker (2/4) - Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
-      - name: Build React App
-        run: npm run build
+      - name: Ready to use Docker (3/4) - Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Log in to DockerHub
-        run: echo "${{ secrets.REGISTRY_PASSWORD }}" \
-          | docker login -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
+      - name: Ready to use Docker (4/4) - Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - name: Build Docker Image
-        run: docker build -t ${{ secrets.REGISTRY_USERNAME }}/timer-frontend:latest .
+      - name: Build and push
+        id: build-and-push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: false
 
-      - name: Push Docker Image
-        run: docker push ${{ secrets.REGISTRY_USERNAME }}/timer-frontend:latest
+      - name: Import Config Repository
+        uses: actions/checkout@v4
+        with:
+          repository: chunzhi23/timer-config
+          ref: main
+          token: ${{ secrets.ACTION_TOKEN }}
+          path: timer-config
 
-      - name: Set up kubectl
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v2
+
+      - name: Apply Generated Image to Config Repository
         run: |
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig.yaml
-          export KUBECONFIG=$PWD/kubeconfig.yaml
+          cd timer-config/overlays/dev/fe/
+          kustomize edit set image ${{ env.dockerimage_name }}:${{ env.dockerimage_tag }}
+          cat kustomization.yaml
 
-      - name: Deploy to Kubernetes
+      - name: Push Modified Config Repository
         run: |
-          kubectl set image deployment/timer-frontend \
-            timer-frontend=${{ secrets.REGISTRY_USERNAME }}/timer-frontend:latest
+          cd timer-config
+          git config --global user.email "lzhongm05@gmail.com"
+          git config --global user.name "chunzhi23"
+          git commit -am "Update image tag"
+          git push -u origin main
