@@ -6,7 +6,7 @@ on:
 
 env:
   dockerimage_tag: ${{ github.sha }}
-  dockerimage_name: tsungmnli/timer-fe
+  dockerimage_name: tsungmnli/timer-fe-prod
 
 jobs:
   build:
