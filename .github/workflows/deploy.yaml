@@ -69,7 +69,7 @@ jobs:
 
       - name: Apply Generated Image to Config Repository
         run: |
-          cd timer-config/overlays/dev/fe/
+          cd timer-config/overlays/prod/fe/
           kustomize edit set image ${{ env.dockerimage_name }}:${{ env.dockerimage_tag }}
           cat kustomization.yaml
 
