@@ -9,6 +9,7 @@ import { pad } from "./util/displayForamt";
 import { DUE_DATE, MESSAGE, START_DATE } from "./properties";
 import classes from "./App.module.css";
 import icon from "./assets/img/flag_of_korea.jpg";
+import { useVisitTracker } from "./hooks/useVisitTracker";
 
 function App() {
   const [day, setDay] = useState("0");
@@ -17,6 +18,8 @@ function App() {
   const [second, setSecond] = useState("00");
   const [status, setStatus] = useState<StatusType>("PENDING");
   const [progress, setProgress] = useState(0);
+
+  useVisitTracker();
 
   useEffect(() => {
     const update = () => {
