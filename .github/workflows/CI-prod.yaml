@@ -42,6 +42,10 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
+      - name: Set up env
+        run: |
+          echo VITE_API_ENDPOINT_PROD=${{ secrets.API_ENDPOINT_PROD }} >> .env
+
       - name: Build and push
         id: build-and-push
         uses: docker/build-push-action@v6

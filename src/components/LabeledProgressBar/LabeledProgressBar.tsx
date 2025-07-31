@@ -2,7 +2,7 @@ import { DUE_DATE, PROGRESS_LABEL_LIST, START_DATE } from "../../properties";
 import {
   calculateLabelPositions,
   getCurrentLabel,
-} from "../../util/labelProgressUtils";
+} from "../../util/labelProgress";
 import classes from "./LabeledProgressBar.module.css";
 
 interface ILabeledProgressBarProps {
@@ -19,9 +19,9 @@ export function LabeledProgressBar({ progress }: ILabeledProgressBarProps) {
   const currentLabel = getCurrentLabel(labels, progress) ?? "unknown";
 
   return (
-    <div className={classes.bar}>
+    <ul className={classes.bar}>
       {labels.map((lbl, idx) => (
-        <div
+        <li
           key={idx}
           className={classes.label}
           style={{ top: `${lbl.topPercent}%` }}
@@ -34,10 +34,10 @@ export function LabeledProgressBar({ progress }: ILabeledProgressBarProps) {
               backgroundColor: "#3b3d5a",
             }}
           />
-        </div>
+        </li>
       ))}
 
-      <div
+      <li
         className={classes.progressLabel}
         style={{
           top: `${progress}%`,
@@ -49,7 +49,7 @@ export function LabeledProgressBar({ progress }: ILabeledProgressBarProps) {
             backgroundColor: "#4d55cc",
           }}
         />
-      </div>
-    </div>
+      </li>
+    </ul>
   );
 }

@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import { SpacerBox } from "../SpacerBox";
-import { pad } from "../../util/dateUtils";
-import type { StatusType } from "../../util/countdownUtils";
+import { pad } from "../../util/displayForamt";
+import type { StatusType } from "../../util/countdown";
 import { PREV_COUNT_MSG } from "../../properties";
 import classes from "./ProgressBox.module.css";
 

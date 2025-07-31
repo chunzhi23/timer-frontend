@@ -1,4 +1,4 @@
-import type { IDuration, ILabel } from "../types/labelType";
+import type { IDuration, ILabel } from "../../types/labelType";
 
 function addDuration(base: Date, dur: IDuration): Date {
   const d = new Date(base);
@@ -16,7 +16,7 @@ function addDuration(base: Date, dur: IDuration): Date {
   return d;
 }
 
-function calculateLabelPositions(
+export function calculateLabelPositions(
   startDate: Date,
   dueDate: Date,
   labels: ILabel[]
@@ -38,11 +38,9 @@ function calculateLabelPositions(
   });
 }
 
-function getCurrentLabel(
+export function getCurrentLabel(
   labels: { name: string; topPercent: number }[],
   progress: number
 ): string | undefined {
   return labels.find((lbl) => progress <= lbl.topPercent)?.name;
 }
-
-export { calculateLabelPositions, getCurrentLabel };

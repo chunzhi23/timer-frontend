@@ -1,0 +1,41 @@
+.visitorBox {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+
+  @media only screen and (max-width: 961px) {
+    position: static;
+  }
+}
+
+.value {
+  padding: 4px 4px 4px 16px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  background-color: #4d55cc;
+  color: #ffffff;
+
+  @media only screen and (max-width: 961px) {
+    font-size: 1em;
+  }
+}
+
+.value::after {
+  content: attr(data-value);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 13px;
+  text-align: center;
+  color: #3b3d5a;
+  background-color: #eeeefa;
+
+  @media only screen and (max-width: 961px) {
+    font-size: 0.95em;
+  }
+}

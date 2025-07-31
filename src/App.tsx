@@ -3,12 +3,12 @@ import { TimeDivider, TimeElement } from "./components/TimeItem";
 import { ProgressBox } from "./components/ProgressBox";
 import { SpacerBox } from "./components/SpacerBox";
 import { LabeledProgressBar } from "./components/LabeledProgressBar";
-import { getCountdownData, type StatusType } from "./util/countdownUtils";
-import { pad } from "./util/dateUtils";
+import { VisitorCountBox } from "./components/VisitorCountBox";
+import { getCountdownData, type StatusType } from "./util/countdown";
+import { pad } from "./util/displayForamt";
 import { DUE_DATE, MESSAGE, START_DATE } from "./properties";
 import classes from "./App.module.css";
 import icon from "./assets/img/flag_of_korea.jpg";
-import { VisitorCountBox } from "./components/VisitorCountBox";
 
 function App() {
   const [day, setDay] = useState("0");

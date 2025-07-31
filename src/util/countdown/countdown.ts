@@ -1,4 +1,4 @@
-type StatusType = "PENDING" | "PROGRESSING" | "COMPLETED";
+export type StatusType = "PENDING" | "PROGRESSING" | "COMPLETED";
 
 interface IGetCountdownDataReq {
   days: number;
@@ -9,7 +9,7 @@ interface IGetCountdownDataReq {
   status: StatusType;
 }
 
-function getCountdownData(
+export function getCountdownData(
   startDate: Date,
   endDate: Date
 ): IGetCountdownDataReq {
@@ -65,5 +65,3 @@ function getCountdownData(
     status: "PROGRESSING",
   };
 }
-
-export { type StatusType, getCountdownData };
