@@ -9,13 +9,7 @@
   height: 100dvh;
 
   @media only screen and (max-width: 961px) {
-    margin: 0;
-    width: auto;
-    height: auto;
-    position: relative;
-
-    list-style: none;
-    counter-reset: list-item;
+    display: none;
   }
 }
 
@@ -26,13 +20,6 @@
   right: 0;
   display: flex;
   flex-direction: row;
-
-  @media only screen and (max-width: 961px) {
-    padding: 0;
-    position: static;
-    display: block;
-    counter-increment: list-item;
-  }
 }
 
 .label::before {
@@ -47,28 +34,10 @@
   transition: opacity 0.2s;
   pointer-events: none;
   white-space: nowrap;
-
-  @media only screen and (max-width: 961px) {
-    content: counter(list-item) ".";
-    padding: 0;
-    border: 0;
-    display: inline-block;
-    font-size: 1.05em;
-    line-height: 28px;
-    opacity: 1;
-  }
 }
 
 .bar:hover .label::before {
   opacity: 1;
-}
-
-.value {
-  display: none;
-
-  @media only screen and (max-width: 961px) {
-    display: inline-block;
-  }
 }
 
 .point,
@@ -77,8 +46,16 @@
   width: 5px;
   height: 5px;
   background-color: #3b3d5a;
+}
+
+.mobileBar {
+  padding-left: 1.5em;
+  display: none;
+  line-height: 28px;
+  list-style-type: decimal;
+  color: #3b3d5a;
 
   @media only screen and (max-width: 961px) {
-    display: none;
+    display: block;
   }
 }

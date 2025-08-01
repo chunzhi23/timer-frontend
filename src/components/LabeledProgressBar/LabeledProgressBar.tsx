@@ -19,38 +19,44 @@ export function LabeledProgressBar({ progress }: ILabeledProgressBarProps) {
   const currentLabel = getCurrentLabel(labels, progress) ?? "unknown";
 
   return (
-    <ul className={classes.bar}>
-      {labels.map((lbl, idx) => (
+    <>
+      <ul className={classes.bar}>
+        {labels.map((lbl, idx) => (
+          <li
+            key={idx}
+            className={classes.label}
+            style={{ top: `${lbl.topPercent}%` }}
+            data-tooltip={lbl.name}
+          >
+            <div
+              className={classes.point}
+              style={{
+                opacity: currentLabel === lbl.name ? 1 : 0.5,
+                backgroundColor: "#3b3d5a",
+              }}
+            />
+          </li>
+        ))}
+
         <li
-          key={idx}
-          className={classes.label}
-          style={{ top: `${lbl.topPercent}%` }}
-          data-tooltip={lbl.name}
+          className={classes.progressLabel}
+          style={{
+            top: `${progress}%`,
+          }}
         >
-          <div className={classes.value}>{lbl.name}</div>
           <div
-            className={classes.point}
+            className={classes.progressPoint}
             style={{
-              opacity: currentLabel === lbl.name ? 1 : 0.5,
-              backgroundColor: "#3b3d5a",
+              backgroundColor: "#4d55cc",
             }}
           />
         </li>
-      ))}
-
-      <li
-        className={classes.progressLabel}
-        style={{
-          top: `${progress}%`,
-        }}
-      >
-        <div
-          className={classes.progressPoint}
-          style={{
-            backgroundColor: "#4d55cc",
-          }}
-        />
-      </li>
-    </ul>
+      </ul>
+      <ul className={classes.mobileBar}>
+        {labels.map((lbl, idx) => (
+          <li key={`mbl-${idx}`}>{lbl.name}</li>
+        ))}
+      </ul>
+    </>
   );
 }
