@@ -49,8 +49,7 @@
   white-space: nowrap;
 
   @media only screen and (max-width: 961px) {
-    content: counter(list-item) ". " attr(data-tooltip);
-    margin: 0;
+    content: counter(list-item) ".";
     padding: 0;
     border: 0;
     display: inline-block;
@@ -62,6 +61,14 @@
 
 .bar:hover .label::before {
   opacity: 1;
+}
+
+.value {
+  display: none;
+
+  @media only screen and (max-width: 961px) {
+    display: inline-block;
+  }
 }
 
 .point,

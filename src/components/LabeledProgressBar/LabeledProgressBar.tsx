@@ -27,6 +27,7 @@ export function LabeledProgressBar({ progress }: ILabeledProgressBarProps) {
           style={{ top: `${lbl.topPercent}%` }}
           data-tooltip={lbl.name}
         >
+          <div className={classes.value}>{lbl.name}</div>
           <div
             className={classes.point}
             style={{
