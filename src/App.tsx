@@ -8,7 +8,7 @@ import { getCountdownData, type StatusType } from "./util/countdown";
 import { pad } from "./util/displayForamt";
 import { DUE_DATE, MESSAGE, START_DATE } from "./properties";
 import classes from "./App.module.css";
-import icon from "./assets/img/flag_of_korea.jpg";
+import icon from "./assets/img/us-rok-flag.png";
 import { useVisitTracker } from "./hooks/useVisitTracker";
 
 function App() {
