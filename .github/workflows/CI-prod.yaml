@@ -21,7 +21,7 @@ jobs:
 
       - name: Ready to use Docker (1/4) - Create Metadata
         id: meta
-        uses: docker/metadata-action@5.7.0
+        uses: docker/metadata-action@v5
         with:
           images: |
             ${{ env.dockerimage_name }}
